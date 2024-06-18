@@ -1,4 +1,5 @@
 package org.launchcode.techjobs.persistent.controllers;
+
 import jakarta.validation.Valid;
 import org.launchcode.techjobs.persistent.models.Skill;
 import org.launchcode.techjobs.persistent.models.data.SkillRepository;
@@ -13,6 +14,7 @@ import java.util.Optional;
 @Controller
 @RequestMapping("skills")
 public class SkillController {
+
     @Autowired
     private SkillRepository skillRepository;
 
@@ -38,19 +40,15 @@ public class SkillController {
         return "redirect:";
     }
 
-    @GetMapping("view/{skills}")
+    @GetMapping("view/{skillId}")
     public String displayViewSkill(Model model, @PathVariable int skillId) {
         Optional<Skill> optSkill = skillRepository.findById(skillId);
         if (optSkill.isPresent()) {
             Skill skill = optSkill.get();
             model.addAttribute("skill", skill);
-            return ("skills/view");
+            return "skills/view";
         } else {
             return "redirect:/skills";
         }
-
     }
-
-
 }
-
