@@ -36,6 +36,7 @@ public class HomeController {
     public String index(Model model) {
 
         model.addAttribute("title", "MyJobs");
+        model.addAttribute("jobs", jobRepository.findAll());
 
         return "index";
     }
@@ -75,7 +76,8 @@ public class HomeController {
                 skillRepository.findAllById(skills);
                 newJob.setSkills(skillObjs);
                 jobRepository.save(newJob);
-            return "redirect:/";
+                model.addAttribute("jobs", jobRepository.findAll());
+            return "redirect:";
     }
 
     @GetMapping("view/{jobId}")
@@ -86,7 +88,7 @@ public class HomeController {
             model.addAttribute("job", job);
             return "view";
         } else {
-            return "redirect:/";
+            return "redirect:../";
         }
     }
 
